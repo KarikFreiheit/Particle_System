@@ -1,6 +1,8 @@
 import processing.core.PVector;
+import processing.core.PApplet;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class ParticleSystem {
 
@@ -15,12 +17,12 @@ public class ParticleSystem {
 
     void addParticle(){
 
-        particles.add(new Particle(origin, m));
+        particles.add(new Particle(origin , m));
 
     }
 
     void run(){
-        for(int i = particles.size()-1; i >= 0; i--){
+        for(int i = 0; i < particles.size(); i++){
             Particle p = particles.get(i);
             p.run();
 

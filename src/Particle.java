@@ -20,20 +20,24 @@ public class Particle extends PApplet {
     }
 
     void update(){
-        PVector mouse = new PVector(mouseX, mouseY);
-        mouse.sub(position);
-        mouse.setMag(.05f);
-        acceleration = mouse;
-        velocity.add(acceleration);
+        if(m.mousePressed) {
+            PVector mouse = new PVector(m.mouseX, m.mouseY);
+            println(m.mouseX + " : " + m.mouseY);
+
+            mouse.sub(position);
+            mouse.setMag(.05f);
+            acceleration = mouse;
+            velocity.add(acceleration);
+        }
         position.add(velocity);
-        velocity.limit(10);
+        velocity.limit(25);
 
 
     }
     void display(){
         m.stroke(255, 255);
         m.fill(255, 255);
-        m.ellipse(position.x, position.y, 2, 2);
+        m.ellipse(position.x, position.y, 1, 1);
 
     }
 }
