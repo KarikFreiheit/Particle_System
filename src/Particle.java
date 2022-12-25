@@ -27,10 +27,10 @@ public class Particle extends PApplet {
             float distance = mouse.sub(position).mag();
 
             //Realistic gravitational pull towards mouse
-            //acceleration = mouse.setMag(10 / (distance * distance));
+            acceleration = mouse.setMag(100 / (distance * distance));
 
             //Constant acceleration towards mouse not based on distance between
-            acceleration = mouse.setMag(.02f);
+            //acceleration = mouse.setMag(.02f);
             velocity.add(acceleration);
         }
         position.add(velocity);
