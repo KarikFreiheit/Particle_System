@@ -27,20 +27,19 @@ public class Particle extends PApplet {
             float distance = mouse.sub(position).mag();
 
             //Realistic gravitational pull towards mouse
-
-            acceleration = mouse.setMag(1000 / (distance * distance));
+            //acceleration = mouse.setMag(1000 / (distance * distance));
 
             //Constant acceleration towards mouse not based on distance between
-            //acceleration = mouse.setMag(.02f);
+            acceleration = mouse.setMag(.1f);
             velocity.add(acceleration);
         }
         position.add(velocity);
-        velocity.limit(5);
+        velocity.limit(10);
         System.out.println(velocity.mag());
 
     }
     void display(){
-        float color = velocity.mag() / 5;
+        float color = velocity.mag() / 10;
         int red = (int)(255 * (1 - color));
         int green = (int)(255 * color);
         int blue = 0;
