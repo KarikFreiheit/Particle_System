@@ -3,6 +3,9 @@ import processing.core.PVector;
 
 public class Main extends PApplet {
 
+    //Todo Keypress toggles for different acceleration
+    //Destroy particles on  off screen
+    //Vector field
 
     ParticleSystem ps;
     public void settings(){
