@@ -6,7 +6,7 @@ public class Main extends PApplet {
 
     ParticleSystem ps;
     public void settings(){
-        size(560, 440);
+        size(2560, 1440);
             int max = 10000;
         ps = new ParticleSystem(new PVector(width / 2, height/2), this);
         for(int i = 0; i < max; i++){
@@ -15,7 +15,7 @@ public class Main extends PApplet {
         }
     }
     public void draw(){
-        background(64);
+        background(10);
         ps.run();
 
     }
