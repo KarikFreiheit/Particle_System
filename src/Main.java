@@ -4,8 +4,8 @@ import processing.core.PVector;
 public class Main extends PApplet {
 
 
-    //Move offscreen particles to opposite side
-    //Vector field
+
+    // Vector field
 
     ParticleSystem ps;
     public void settings(){
