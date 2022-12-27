@@ -8,11 +8,18 @@ public class ParticleSystem {
 
     ArrayList<Particle> particles;
     PVector origin;
+
+    FlowField field;
+    int sections;
+    PVector[][] array;
     Main m;
     ParticleSystem(PVector position, Main m){
        this.origin = position.copy();
        this.particles = new ArrayList<Particle>();
        this.m = m;
+
+       field = new FlowField(m);
+       array = field.splitScreen(20);
     }
 
     void addParticle(){
@@ -21,11 +28,15 @@ public class ParticleSystem {
 
     }
 
+    void checkSection(){
+
+    }
+
     void run(){
         for(int i = 0; i < particles.size(); i++){
             Particle p = particles.get(i);
             p.run();
-
+            field.apply(p, sections, array);
         }
     }
 
