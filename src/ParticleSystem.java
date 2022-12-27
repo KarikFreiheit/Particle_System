@@ -18,7 +18,7 @@ public class ParticleSystem {
        this.particles = new ArrayList<Particle>();
        this.m = m;
 
-       field = new FlowField(m);
+       field = new FlowField(this.m);
        array = field.splitScreen(20);
     }
 

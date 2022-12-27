@@ -1,6 +1,8 @@
 import processing.core.PApplet;
 import processing.core.PVector;
 
+import java.util.Random;
+
 public class FlowField extends PApplet {
 
     //Split Screen into sections
@@ -12,19 +14,21 @@ public class FlowField extends PApplet {
     //Additions
 
     Main m;
-
+    int cols, rows;
 
     FlowField(Main m){
         this.m = m;
     }
     PVector[][] splitScreen(int sections){
+        cols = m.width / sections;
+        rows = m.height / sections;
+        PVector[][] array = new PVector[cols][rows];
 
-        PVector[][] array = new PVector[sections][sections];
-
-        for(int x = 0; x < sections; x++){
-            for(int y = 0; y < sections; y++){
-
-               array[x][y] = new PVector(10, 10);
+        for(int x = 0; x < cols; x++){
+            for(int y = 0; y < rows; y++){
+                float theta = random(-PI /4, random(PI/4));
+                System.out.print("Theta: " +theta);
+                array[x][y] = PVector.fromAngle(theta);
             }
         }
         return array;
@@ -33,19 +37,30 @@ public class FlowField extends PApplet {
     }
 
     void apply(Particle p, int sections, PVector[][] vectors){
-        p.velocity.add(vectors[(int) (p.position.x / m.width)][(int) (p.position.y / m.height)]);
-    }
-    // Creates an arrow shape
-    //https://gist.github.com/takahashilabo/81b7f22b4ecee1fa5d84393ab670ef99
+        for(int x = 0; x < cols; x++){
+            for(int y = 0; y < rows; y++){
+               drawVector(vectors[x][y], x*sections, y*sections, sections);
+            }
+        }
 
-    void drawArrow(float x1, float y1, float x2, float y2) {
-        float a = dist(x1, y1, x2, y2) / 50;
-        pushMatrix();
-        translate(x2, y2);
-        rotate(atan2(y2 - y1, x2 - x1));
-        triangle(- a * 2 , - a, 0, 0, - a * 2, a);
-        popMatrix();
-        line(x1, y1, x2, y2);
+    }
+    //Displays the Vector
+    //https://github.com/nature-of-code/noc-examples-processing/blob/master/chp06_agents/NOC_6_04_Flowfield/FlowField.pde
+    void drawVector(PVector v, float x, float y, float scayl) {
+        m.pushMatrix();
+        float arrowsize = 4;
+        // Translate to position to render vector
+        m.translate(x,y);
+        m.stroke(255);
+        // Call vector heading function to get direction (note that pointing to the right is a heading of 0) and rotate
+        m.rotate(v.heading());
+        // Calculate length of vector & scale it to be bigger or smaller if necessary
+        float len = v.mag()*scayl;
+        // Draw three lines to make an arrow (draw pointing up since we've rotate to the proper direction)
+        m.line(0,0,len,0);
+        m.line(len,0,len-arrowsize,+arrowsize/2);
+        m.line(len,0,len-arrowsize,-arrowsize/2);
+        m.popMatrix();
     }
 
 

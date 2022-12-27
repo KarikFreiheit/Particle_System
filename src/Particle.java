@@ -22,17 +22,8 @@ public class Particle extends PApplet {
     }
 
     void update(){
-        if(position.x > m.width){
-            position.x = 0;
-        }else if(position.x < 0){
-            position.x = m.width;
-        }
-        if(position.y > m.height){
-            position.y = 0;
-        }else if(position.y < 0){
-            position.y = m.height;
-        }
-        if(m.mousePressed) {
+
+        /*if(m.mousePressed) {
             PVector mouse = new PVector(m.mouseX, m.mouseY);
             float distance = mouse.sub(position).mag();
 
@@ -43,9 +34,11 @@ public class Particle extends PApplet {
             acceleration = mouse.setMag(.1f);
             velocity.add(acceleration);
         }
+
+        */
         position.add(velocity);
         velocity.limit(10);
-        System.out.println(velocity.mag());
+        //System.out.println("Velocity: " + velocity.mag());
 
     }
     void display(){
@@ -54,10 +47,10 @@ public class Particle extends PApplet {
         int red = (int)(255 * (1 - color));
         int green = (int)(255 * color);
         int blue = 0;
-        System.out.println(color);
 
         m.stroke(red, green, blue);
+        m.pushMatrix();
         m.point(position.x, position.y);
-
+        m.popMatrix();
     }
 }
