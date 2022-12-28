@@ -34,7 +34,7 @@ public class FlowField extends PApplet {
 
                 float distance = sqrt(dx * dx + dy * dy);
                 //The equation used to build the vector field goes here. Use dy and dx to approximately center the vector field
-                float theta = atan2(-dy, dx);
+                float theta = atan2(dy, dx);
                 //Dividing the 1 by distance will lessen the magnitude of each velocity as you move further away from the origin.
                 array[x][y] = PVector.fromAngle(theta);
             }
@@ -61,7 +61,7 @@ public class FlowField extends PApplet {
         m.pushMatrix();
         float arrowsize = 4;
         // Translate to position to render vector
-        m.translate(x + cols, y + rows / 2);
+        m.translate(x, y);
         m.stroke(255);
         // Call vector heading function to get direction (note that pointing to the right is a heading of 0) and rotate
         m.rotate(v.heading());

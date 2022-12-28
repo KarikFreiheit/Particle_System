@@ -10,7 +10,7 @@ public class ParticleSystem {
     PVector origin;
 
     FlowField field;
-    int section;
+    int sectionSize;
     PVector[][] array;
     Main m;
     ParticleSystem(PVector position, Main m){
@@ -18,9 +18,9 @@ public class ParticleSystem {
        this.particles = new ArrayList<Particle>();
        this.m = m;
        //50 is a good in between for approximation and size of each section
-       this.section= 50;
+       this.sectionSize= 30;
        field = new FlowField(this.m);
-       array = field.splitScreen(section);
+       array = field.splitScreen(sectionSize);
     }
 
     void addParticle(){
@@ -35,10 +35,10 @@ public class ParticleSystem {
 
     void run(){
         for(Particle p : particles){
-            p.run(field, section);
+            p.run(field, sectionSize);
 
         }
-        field.display(section, array);
+        field.display(sectionSize, array);
     }
 
 
