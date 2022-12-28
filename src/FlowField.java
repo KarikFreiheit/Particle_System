@@ -33,8 +33,8 @@ public class FlowField extends PApplet {
                 float dy = y -middleY;
 
                 float distance = sqrt(dx * dx + dy * dy);
-                //The equation used to build the vector field goes here. Use dy and dx to approximately center the vector field
-                float theta = atan2(dy, dx);
+                //The equation used to build the vector field goes here. Use dy and dx to approximately center the vector field:  (x, y) unlike a normal vector field of (y, x)
+                float theta = atan2(dx, -dy);
                 //Dividing the 1 by distance will lessen the magnitude of each velocity as you move further away from the origin.
                 array[x][y] = PVector.fromAngle(theta);
             }
@@ -45,12 +45,18 @@ public class FlowField extends PApplet {
     }
 
     void display(int sections, PVector[][] vectors){
-        for(int x = 0; x < cols; x++){
-            for(int y = 0; y < rows; y++){
-               drawVector(vectors[x][y], x*sections, y*sections, sections / 2, sections);
-               System.out.println("X: " + x + "Y: " + y + "Vector: " + vectors[x][y]);
-            }
+        boolean on = false;
+        if(m.mousePressed){
+            on = true;
+        }
+        if(on == true) {
+            for (int x = 0; x < cols; x++) {
+                for (int y = 0; y < rows; y++) {
+                    drawVector(vectors[x][y], x * sections, y * sections, sections / 2, sections);
+                    System.out.println("X: " + x + "Y: " + y + "Vector: " + vectors[x][y]);
+                }
 
+            }
         }
 
 

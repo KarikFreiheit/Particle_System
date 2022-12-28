@@ -46,6 +46,7 @@ public class Particle extends PApplet {
     }
 
     void follow(FlowField flow, int section) {
+
         // What is the vector at that spot in the flow field?
         PVector desired = flow.lookup(position, vector, section);
 
