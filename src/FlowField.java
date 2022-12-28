@@ -39,7 +39,7 @@ public class FlowField extends PApplet {
     void display(int sections, PVector[][] vectors){
         for(int x = 0; x < cols; x++){
             for(int y = 0; y < rows; y++){
-               drawVector(vectors[x][y], x*sections, y*sections, sections-2);
+               drawVector(vectors[x][y], x*sections, y*sections, sections - 10);
                System.out.println("X: " + x + "Y: " + y + "Vector: " + vectors[x][y]);
             }
 
