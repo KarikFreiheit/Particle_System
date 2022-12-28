@@ -6,6 +6,7 @@ public class Main extends PApplet {
 
 
     // Vector field
+    //Create Vector fields from equation
 
     ParticleSystem ps;
 
@@ -15,7 +16,7 @@ public class Main extends PApplet {
 
     public void settings(){
 
-        size(1000, 1000);
+        size(1920, 1080);
         int max = 10000;
         ps = new ParticleSystem(new PVector(width / 2, height/2), this);
         for(int i = 0; i < max; i++){

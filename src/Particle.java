@@ -51,6 +51,17 @@ public class Particle extends PApplet {
 
         PVector steer = PVector.sub(desired, velocity);
         position.add(steer);
+        //Moves a vector offscreen to the opposite side.
+        if(position.x > m.width ){
+            position.x = 0;
+        }else if(position.x <= 0){
+            position.x = m.width;
+        }
+        if(position.y > m.height){
+            position.y = 0;
+        }else if(position.y < 0){
+            position.y = m.height;
+        }
     }
     void display(){
         //Colors based on velocity of each particle: Fast = Green, Slow = Red
