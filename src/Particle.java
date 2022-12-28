@@ -66,14 +66,12 @@ public class Particle extends PApplet {
     }
     void display(){
         //Colors based on velocity of each particle: Fast = Green, Slow = Red
-        float color = velocity.mag() / 10;
+        float color = velocity.mag() * 10;
         int red = (int)(255 * (1 - color));
         int green = (int)(255 * color);
         int blue = 0;
 
         m.stroke(red, green, blue);
-        m.pushMatrix();
         m.point(position.x, position.y);
-        m.popMatrix();
     }
 }

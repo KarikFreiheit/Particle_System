@@ -38,7 +38,7 @@ public class FlowField extends PApplet {
                 //Will only work with large scale vector fields, something in the bounds of -2 and 2 won't be visible.
                 float theta = atan2(-dy, dx);
                 //Dividing the 1 by distance will lessen the magnitude of each velocity as you move further away from the origin.
-                array[x][y] = PVector.fromAngle(theta);
+                array[x][y] = PVector.fromAngle(theta).setMag(10 / distance);
             }
         }
         return array;
