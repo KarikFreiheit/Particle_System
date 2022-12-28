@@ -5,25 +5,29 @@ public class Particle extends PApplet {
     PVector velocity;
     PVector acceleration;
     Main m;
+    PVector[][] vector;
 
-    public Particle(PVector l, Main m){
+    public Particle(PVector l, Main m, PVector[][] vector){
 
         this.velocity = new PVector(0,0);
         this.position = new PVector(random(0, m.width), random(0, m.height));
         this.acceleration = new PVector(0,0);
         this.m = m;
+        this.vector = vector;
+
     }
-    void run(){
+    void run(FlowField field, int section){
 
-        update();
+        //update();
 
+        follow(field, section);
         display();
 
     }
 
     void update(){
 
-        /*if(m.mousePressed) {
+        if(m.mousePressed) {
             PVector mouse = new PVector(m.mouseX, m.mouseY);
             float distance = mouse.sub(position).mag();
 
@@ -35,11 +39,18 @@ public class Particle extends PApplet {
             velocity.add(acceleration);
         }
 
-        */
         position.add(velocity);
         velocity.limit(10);
         //System.out.println("Velocity: " + velocity.mag());
 
+    }
+
+    void follow(FlowField flow, int section) {
+        // What is the vector at that spot in the flow field?
+        PVector desired = flow.lookup(position, vector, section);
+
+        PVector steer = PVector.sub(desired, velocity);
+        position.add(steer);
     }
     void display(){
         //Colors based on velocity of each particle: Fast = Green, Slow = Red

@@ -27,7 +27,7 @@ public class FlowField extends PApplet {
         for(int x = 0; x < cols; x++){
             for(int y = 0; y < rows; y++){
                 float theta = random(-PI /4, random(PI/4));
-                System.out.print("Theta: " +theta);
+                //System.out.println("Theta: " +theta);
                 array[x][y] = PVector.fromAngle(theta);
             }
         }
@@ -36,31 +36,32 @@ public class FlowField extends PApplet {
 
     }
 
-    void apply(Particle p, int sections, PVector[][] vectors){
+    void display(int sections, PVector[][] vectors){
+        int i = 0;
         for(int x = 0; x < cols; x++){
             for(int y = 0; y < rows; y++){
-               drawVector(vectors[x][y], x*sections, y*sections, sections);
+               drawVector(vectors[x][y], x*sections, y*sections, sections-2);
+               i++;
+               System.out.println("X: " + x + "Y: " + y + "Vector: " + vectors[x][y] + "Total: " + i);
             }
+
         }
+
 
     }
     //Displays the Vector
-    //https://github.com/nature-of-code/noc-examples-processing/blob/master/chp06_agents/NOC_6_04_Flowfield/FlowField.pde
     void drawVector(PVector v, float x, float y, float scayl) {
-        m.pushMatrix();
-        float arrowsize = 4;
-        // Translate to position to render vector
-        m.translate(x,y);
-        m.stroke(255);
-        // Call vector heading function to get direction (note that pointing to the right is a heading of 0) and rotate
-        m.rotate(v.heading());
-        // Calculate length of vector & scale it to be bigger or smaller if necessary
         float len = v.mag()*scayl;
-        // Draw three lines to make an arrow (draw pointing up since we've rotate to the proper direction)
-        m.line(0,0,len,0);
-        m.line(len,0,len-arrowsize,+arrowsize/2);
-        m.line(len,0,len-arrowsize,-arrowsize/2);
-        m.popMatrix();
+        m.stroke(255);
+        m.line(x, y, x + len, y + len);
+        m.rotate(v.heading());
+
+    }
+
+    PVector lookup(PVector lookup, PVector[][] vector, int section){
+        int column = (constrain((int)lookup.x/section,0,cols-1));
+        int row = (constrain((int) lookup.y/section,0,rows-1));
+        return vector[column][row];
     }
 
 

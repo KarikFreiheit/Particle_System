@@ -10,13 +10,13 @@ public class Main extends PApplet {
     ParticleSystem ps;
 
     public void setup(){
-        frameRate(10);
+        frameRate(30);
     }
 
     public void settings(){
 
-        size(1920, 1080);
-        int max = 100;
+        size(1000, 1000);
+        int max = 10000;
         ps = new ParticleSystem(new PVector(width / 2, height/2), this);
         for(int i = 0; i < max; i++){
             ps.addParticle();
@@ -27,6 +27,7 @@ public class Main extends PApplet {
     public void draw(){
         background(10);
         ps.run();
+
 
     }
     public static void main(String[] passedArgs){

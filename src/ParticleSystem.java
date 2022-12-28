@@ -17,14 +17,14 @@ public class ParticleSystem {
        this.origin = position.copy();
        this.particles = new ArrayList<Particle>();
        this.m = m;
-
+       this.sections = 100;
        field = new FlowField(this.m);
-       array = field.splitScreen(20);
+       array = field.splitScreen(sections);
     }
 
     void addParticle(){
 
-        particles.add(new Particle(origin , m));
+        particles.add(new Particle(origin , m, array));
 
     }
 
@@ -33,11 +33,11 @@ public class ParticleSystem {
     }
 
     void run(){
-        for(int i = 0; i < particles.size(); i++){
-            Particle p = particles.get(i);
-            p.run();
-            field.apply(p, sections, array);
+        for(Particle p : particles){
+            p.run(field, sections);
+
         }
+        field.display(sections, array);
     }
 
 
