@@ -37,12 +37,10 @@ public class FlowField extends PApplet {
     }
 
     void display(int sections, PVector[][] vectors){
-        int i = 0;
         for(int x = 0; x < cols; x++){
             for(int y = 0; y < rows; y++){
                drawVector(vectors[x][y], x*sections, y*sections, sections-2);
-               i++;
-               System.out.println("X: " + x + "Y: " + y + "Vector: " + vectors[x][y] + "Total: " + i);
+               System.out.println("X: " + x + "Y: " + y + "Vector: " + vectors[x][y]);
             }
 
         }
@@ -50,11 +48,22 @@ public class FlowField extends PApplet {
 
     }
     //Displays the Vector
+
     void drawVector(PVector v, float x, float y, float scayl) {
-        float len = v.mag()*scayl;
+        m.pushMatrix();
+        float arrowsize = 4;
+        // Translate to position to render vector
+        m.translate(x,y);
         m.stroke(255);
-        m.line(x, y, x + len, y + len);
+        // Call vector heading function to get direction (note that pointing to the right is a heading of 0) and rotate
         m.rotate(v.heading());
+        // Calculate length of vector & scale it to be bigger or smaller if necessary
+        float len = v.mag()*scayl;
+        // Draw three lines to make an arrow (draw pointing up since we've rotate to the proper direction)
+        m.line(0,0,len,0);
+        //line(len,0,len-arrowsize,+arrowsize/2);
+        //line(len,0,len-arrowsize,-arrowsize/2);
+        m.popMatrix();
 
     }
 
