@@ -10,25 +10,51 @@ public class Main extends PApplet {
 
     ParticleSystem ps;
 
+    Thread[] threads;
+
+    //Thread count, set to number of CPU cores available
+    int threadCount = 8;
+    //Particle Count
+    int max = 100000;
+    int size = max / threadCount;
+
     public void setup(){
         frameRate(30);
+
+
     }
 
     public void settings(){
 
         size(1920, 1080);
-        int max = 10000;
+        threads = new Thread[threadCount];
+
+        //Not recommended to have over 10,000 particles unless you have killer single core processing
         ps = new ParticleSystem(new PVector(width / 2, height/2), this);
         for(int i = 0; i < max; i++){
-            ps.addParticle();
+            int group = i / size;
+            ps.addParticle(group);
+
         }
+
+
 
 
     }
     public void draw(){
         background(10);
-        ps.run();
-
+        for(int i =0; i < threadCount; i ++){
+            final int group = i;
+            threads[i] = new Thread(() -> {
+                for(int j = size * group; j < (group + 1) * size; j++){
+                    ps.run(j);
+                }
+            });
+        }
+        for (Thread t : threads) {
+            t.start();
+        }
+        ps.display();
 
     }
     public static void main(String[] passedArgs){

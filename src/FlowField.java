@@ -25,8 +25,9 @@ public class FlowField extends PApplet {
         int middleX = cols / 2;
         int middleY = rows / 2;
         PVector[][] array = new PVector[cols][rows];
-
+        float xOffset = 0;
         for(int x = 0; x < cols; x++){
+            float yOffset = 0;
             for(int y = 0; y < rows; y++){
                 //This attempts to make it so the center of the vectorfield is the center of the screen
                 //YES IT'S SUPPOSED TO LOOK LIKE THIS
@@ -36,10 +37,16 @@ public class FlowField extends PApplet {
                 float distance = sqrt(dx * dx + dy * dy);
                 //The equation used to build the vector field goes here. Use dy and dx to approximately center the vector field
                 //Will only work with large scale vector fields, something in the bounds of -2 and 2 won't be visible.
-                float theta = atan2(-dy, dx);
-                //Dividing the 1 by distance will lessen the magnitude of each velocity as you move further away from the origin.
-                array[x][y] = PVector.fromAngle(theta).setMag(10 / distance);
+                //float theta = atan2(-dy, dx);
+                float theta = noise(xOffset, yOffset) * TWO_PI;
+                //Dividing the 10 by distance will lessen the magnitude of each velocity as you move further away from the origin.
+                //array[x][y] = PVector.fromAngle(theta).setMag(10 / distance);
+                //While setting magnitude to 1 will make all velocities equal.
+                array[x][y] = PVector.fromAngle(theta).setMag(1);
+                yOffset += .1f;
             }
+            xOffset += .1f;
+
         }
         return array;
 
