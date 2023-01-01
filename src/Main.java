@@ -43,16 +43,23 @@ public class Main extends PApplet {
     }
     public void draw(){
         background(10);
-        for(int i =0; i < threadCount; i ++){
-            final int group = i;
-            threads[i] = new Thread(() -> {
-                for(int j = size * group; j < (group + 1) * size; j++){
-                    ps.run(j);
-                }
-            });
-        }
-        for (Thread t : threads) {
-            t.start();
+        if(frameCount == 1) {
+            for(int i =0; i < threadCount; i ++){
+                final int group = i;
+                threads[i] = new Thread(() -> {
+                    for(int j = size * group; j < (group + 1) * size; j++){
+                        ps.run(j);
+                    }
+                });
+            }
+
+            for (Thread t : threads) {
+                t.start();
+            }
+        }else{
+            for (Thread t : threads) {
+                t.run();
+            }
         }
         ps.display();
 
