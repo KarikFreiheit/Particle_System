@@ -24,15 +24,16 @@ public class ParticleSystem extends PApplet {
 
     }
 
-    void addParticle(int group){
+    void addParticle(){
 
-        particles.add(new Particle(origin , m, array, group));
+        particles.add(new Particle(origin , m, array));
 
     }
 
-    void run(int j){
-        System.out.println("Running: " + j);
-        particles.get(j).run(field, sectionSize);
+    void run(){
+        for(Particle p : particles) {
+            p.run(field, sectionSize);
+        }
 
     }
     void display(){

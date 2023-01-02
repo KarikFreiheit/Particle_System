@@ -6,18 +6,14 @@ public class Particle extends PApplet {
     PVector acceleration;
     Main m;
     PVector[][] vector;
-    int group;
 
-    public Particle(PVector l, Main m, PVector[][] vector, int group){
+    public Particle(PVector l, Main m, PVector[][] vector){
 
         this.velocity = new PVector(0,0);
         this.position = new PVector(random(0, m.width), random(0, m.height));
         this.acceleration = new PVector(0,0);
         this.m = m;
         this.vector = vector;
-        //For handling what thread it's in, used in Main class
-        this.group = group;
-
     }
     void run(FlowField field, int section){
 
