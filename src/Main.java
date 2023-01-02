@@ -9,7 +9,7 @@ public class Main extends PApplet {
     //Create Vector fields from equation
 
     ParticleSystem ps;
-    //Particle Count
+    //Particle Count, not recommended to have over 10,000 particles unless you have killer single core processing
     int max = 10000;
 
     public void setup(){
@@ -19,7 +19,7 @@ public class Main extends PApplet {
     public void settings(){
 
         size(1920, 1080);
-        //Not recommended to have over 10,000 particles unless you have killer single core processing
+        fullScreen();
         ps = new ParticleSystem(new PVector(width / 2, height/2), this);
         for(int i = 0; i < max; i++){
             ps.addParticle();
