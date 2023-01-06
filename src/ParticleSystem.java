@@ -47,6 +47,10 @@ public class ParticleSystem extends PApplet {
             if(m.key == 'r'){
                 System.out.println("R");
                 field.splitScreen(sectionSize);
+                m.ps = new ParticleSystem(new PVector(width / 2, height/2), m);
+                for(int i = 0; i < m.max; i++){
+                    m.ps.addParticle();
+                }
             }
         }
 
