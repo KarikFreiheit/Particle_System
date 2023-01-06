@@ -1,5 +1,6 @@
 import processing.core.PVector;
 import processing.core.PApplet;
+import processing.event.KeyEvent;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -30,9 +31,23 @@ public class ParticleSystem extends PApplet {
 
     }
 
+    void removeAll(){
+        for(Particle p : particles){
+            particles.remove(p);
+        }
+
+    }
+
     void run(){
         for(Particle p : particles) {
             p.run(field, sectionSize);
+        }
+        //Resets FlowField
+        if(m.keyPressed){
+            if(m.key == 'r'){
+                System.out.println("R");
+                field.splitScreen(sectionSize);
+            }
         }
 
     }
