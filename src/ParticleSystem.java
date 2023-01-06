@@ -38,11 +38,7 @@ public class ParticleSystem extends PApplet {
     }
     void display(){
         field.display(sectionSize, array);
-        for(Particle p : particles){
-            m.blendMode(ADD);
-            p.display();
-            m.blendMode(BLEND);
-        }
+
     }
 
 

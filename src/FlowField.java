@@ -38,18 +38,18 @@ public class FlowField extends PApplet {
                 //============================================================
                 //The equation used to build the vector field goes here. Use dy and dx to approximately center the vector field
                 //Will only work with large scale vector fields, something in the bounds of -2 and 2 won't be visible.
-                //float theta = atan2(-dy, dx);
-
+                float theta = atan2(-dy, dx);
+                float mag = noise(xOffset, yOffset) * TWO_PI;
                 //=====================================================
                 //noise function to create wavy particles
-                float theta = noise(xOffset, yOffset) * TWO_PI;
+                //float theta = noise(xOffset, yOffset) * TWO_PI;
 
 
                 //========================================
                 //Dividing the 10 by distance will lessen the magnitude of each velocity as you move further away from the origin.
                 //array[x][y] = PVector.fromAngle(theta).setMag(10 / distance);
                 //While setting magnitude to 1 will make all velocities equal.
-                array[x][y] = PVector.fromAngle(theta).setMag(1);
+                array[x][y] = PVector.fromAngle(theta).setMag(mag);
                 yOffset += .1f;
             }
             xOffset += .1f;

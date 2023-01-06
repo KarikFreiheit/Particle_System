@@ -7,6 +7,8 @@ public class Particle extends PApplet {
     Main m;
     PVector[][] vector;
 
+    PVector steer;
+
     public Particle(PVector l, Main m, PVector[][] vector){
 
         this.velocity = new PVector(0,0);
@@ -14,14 +16,13 @@ public class Particle extends PApplet {
         this.acceleration = new PVector(0,0);
         this.m = m;
         this.vector = vector;
+        this.steer = new PVector(0,0);
     }
     void run(FlowField field, int section){
 
         //update();
         follow(field, section);
-
-
-
+        display();
     }
 
 
@@ -50,8 +51,11 @@ public class Particle extends PApplet {
         // What is the vector at that spot in the flow field?
         PVector desired = flow.lookup(position, vector, section);
 
-        PVector steer = PVector.sub(desired, velocity);
-        position.add(steer);
+        //Where to go, what's its new velocity?
+        steer = PVector.sub(desired, velocity);
+
+        //Do the steering, change its position
+        position.add(steer.limit(3));
         //Moves a vector offscreen to the opposite side.
         if(position.x > m.width ){
             position.x = 0;
@@ -65,18 +69,16 @@ public class Particle extends PApplet {
         }
     }
     void display(){
-        /*Colors based on velocity of each particle: Fast = Green, Slow = Red
-        float color = velocity.mag() * 10;
+        //Colors based on velocity of each particle: Fast = Green, Slow = Red !CHANGE STEER TO VELOCITY WHEN NOT USING FLOW FIELD
+        float color = steer.mag() / 3;
         int red = (int)(255 * (1 - color));
         int green = (int)(255 * color);
         int blue = 0;
-         */
 
-        int red = 255;
-        int green = 255;
-        int blue = 255;
 
-        m.stroke(red, green, blue, 64);
+
+
+        m.stroke(red, green, blue, 255);
         m.point(position.x, position.y);
     }
 }
