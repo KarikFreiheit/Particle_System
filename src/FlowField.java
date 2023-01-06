@@ -33,13 +33,16 @@ public class FlowField extends PApplet {
                 //YES IT'S SUPPOSED TO LOOK LIKE THIS
                 float dx = (y -middleY);
                 float dy = (x -middleX);
-
+                //Default Noise: noise(xOffset, yOffset) * TWO_PI\
+                //Dividing magnitude by distance will make inside be high velo and outside be low velo
                 float distance = sqrt(dx * dx + dy * dy);
+                //Big number = less velocity overall, negative reverses all velocities
+                float magnitudeDampening = .5f;
                 //============================================================
                 //The equation used to build the vector field goes here. Use dy and dx to approximately center the vector field
                 //Will only work with large scale vector fields, something in the bounds of -2 and 2 won't be visible.
                 float theta = atan2(-dy, dx);
-                float mag = noise(xOffset, yOffset) * TWO_PI;
+                float mag = noise(xOffset, yOffset) * TWO_PI * noise(xOffset, yOffset) / magnitudeDampening;
                 //=====================================================
                 //noise function to create wavy particles
                 //float theta = noise(xOffset, yOffset) * TWO_PI;
