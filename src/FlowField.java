@@ -41,6 +41,7 @@ public class FlowField extends PApplet {
                 //============================================================
                 //The equation used to build the vector field goes here. Use dy and dx to approximately center the vector field
                 //Will only work with large scale vector fields, something in the bounds of -2 and 2 won't be visible.
+                //Default: atan2(-dy, dx)
                 float theta = atan2(-dy, dx);
                 float mag = noise(xOffset, yOffset) * TWO_PI * noise(xOffset, yOffset) / magnitudeDampening;
                 //=====================================================

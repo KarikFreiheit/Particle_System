@@ -19,7 +19,7 @@ public class ParticleSystem extends PApplet {
        this.particles = new ArrayList<Particle>();
        this.m = m;
        //50 is a good in between for approximation and size of each section
-       this.sectionSize= 30;
+       this.sectionSize= 15;
        field = new FlowField(this.m);
        array = field.splitScreen(sectionSize);
 

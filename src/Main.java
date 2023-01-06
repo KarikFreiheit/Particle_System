@@ -6,11 +6,12 @@ public class Main extends PApplet {
 
 
     // Vector field
+    //TRY TO USE REAL WORLD DATA
     //Create Vector fields from equation
 
     ParticleSystem ps;
     //Particle Count, not recommended to have over 10,000 particles unless you have killer single core processing
-    int max = 25000;
+    int max = 100000;
 
     public void setup(){
         frameRate(30);
