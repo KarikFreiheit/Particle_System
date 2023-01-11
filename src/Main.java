@@ -11,7 +11,7 @@ public class Main extends PApplet {
 
     ParticleSystem ps;
     //Particle Count, not recommended to have over 10,000 particles unless you have killer single core processing
-    int max = 100000;
+    int max = 30000;
 
     public void setup(){
         frameRate(30);
