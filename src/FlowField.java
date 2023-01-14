@@ -33,7 +33,7 @@ public class FlowField extends PApplet {
                 //YES IT'S SUPPOSED TO LOOK LIKE THIS
                 float dx = (y -middleY);
                 float dy = (x -middleX);
-                //Default Noise: noise(xOffset, yOffset) * TWO_PI\
+                //Default Noise: noise(xOffset, yOffset) * TWO_PI
                 //Dividing magnitude by distance will make inside be high velo and outside be low velo
                 float distance = sqrt(dx * dx + dy * dy);
                 //Big number = less velocity overall, negative reverses all velocities
@@ -67,9 +67,6 @@ public class FlowField extends PApplet {
     void display(int sections, PVector[][] vectors){
         boolean on = false;
         if(m.mousePressed){
-            on = true;
-        }
-        if(on == true) {
             for (int x = 0; x < cols; x++) {
                 for (int y = 0; y < rows; y++) {
                     drawVector(vectors[x][y], x * sections, y * sections, sections / 2, sections);
@@ -78,6 +75,7 @@ public class FlowField extends PApplet {
 
             }
         }
+
 
 
     }

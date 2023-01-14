@@ -7,6 +7,8 @@ public class Main extends PApplet {
 
     // Vector field
     //TRY TO USE REAL WORLD DATA
+    //HOW TO
+    //Scatter a number of points all over the US
     //Create Vector fields from equation
 
     ParticleSystem ps;
