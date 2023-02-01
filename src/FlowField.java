@@ -1,6 +1,18 @@
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.PropertyAccessor;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 import processing.core.PApplet;
 import processing.core.PVector;
 
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class FlowField extends PApplet {
@@ -16,10 +28,17 @@ public class FlowField extends PApplet {
     Main m;
     int cols, rows;
 
+    ArrayList<point> points;
+
     FlowField(Main m){
         this.m = m;
+        points = new ArrayList<>();
     }
-    PVector[][] splitScreen(int sections){
+    PVector[][] splitScreen(int sections) throws IOException {
+        File f = new File("Vectors.json");
+        String s = "";
+        ObjectMapper om = new ObjectMapper();
+        om.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
         cols = m.width / sections;
         rows = m.height / sections;
         int middleX = cols / 2;
@@ -53,12 +72,25 @@ public class FlowField extends PApplet {
                 //Dividing the 10 by distance will lessen the magnitude of each velocity as you move further away from the origin.
                 //array[x][y] = PVector.fromAngle(theta).setMag(10 / distance);
                 //While setting magnitude to 1 will make all velocities equal.
+
                 array[x][y] = PVector.fromAngle(theta).setMag(mag);
                 yOffset += .1f;
+                point p = new point(x, y, theta, mag);
+                points.add(p);
+
             }
             xOffset += .1f;
 
         }
+        ObjectWriter writer = om.writer(new DefaultPrettyPrinter());
+
+        for(point p : points){
+            s += om.writeValueAsString(p);
+            System.out.println(s);
+            writer.writeValue(f, p);
+        }
+
+
         return array;
 
 
@@ -70,7 +102,7 @@ public class FlowField extends PApplet {
             for (int x = 0; x < cols; x++) {
                 for (int y = 0; y < rows; y++) {
                     drawVector(vectors[x][y], x * sections, y * sections, sections / 2, sections);
-                    System.out.println("X: " + x + "Y: " + y + "Vector: " + vectors[x][y]);
+                    //System.out.println("X: " + x + "Y: " + y + "Vector: " + vectors[x][y]);
                 }
 
             }

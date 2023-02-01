@@ -2,6 +2,7 @@ import processing.core.PVector;
 import processing.core.PApplet;
 import processing.event.KeyEvent;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -14,7 +15,7 @@ public class ParticleSystem extends PApplet {
     int sectionSize;
     PVector[][] array;
     Main m;
-    ParticleSystem(PVector position, Main m){
+    ParticleSystem(PVector position, Main m) throws IOException {
        this.origin = position.copy();
        this.particles = new ArrayList<Particle>();
        this.m = m;
@@ -38,7 +39,7 @@ public class ParticleSystem extends PApplet {
 
     }
 
-    void run(){
+    void run() throws IOException {
         for(Particle p : particles) {
             p.run(field, sectionSize);
         }

@@ -1,6 +1,8 @@
 import processing.core.PApplet;
 import processing.core.PVector;
 
+import java.io.IOException;
+
 public class Main extends PApplet {
 
 
@@ -13,7 +15,7 @@ public class Main extends PApplet {
 
     ParticleSystem ps;
     //Particle Count, not recommended to have over 10,000 particles unless you have killer single core processing
-    int max = 30000;
+    int max = 10000;
 
     public void setup(){
         frameRate(30);
@@ -23,7 +25,11 @@ public class Main extends PApplet {
 
         size(1920, 1080);
         fullScreen();
-        ps = new ParticleSystem(new PVector(width / 2, height/2), this);
+        try {
+            ps = new ParticleSystem(new PVector(width / 2, height/2), this);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         for(int i = 0; i < max; i++){
             ps.addParticle();
         }
@@ -34,7 +40,11 @@ public class Main extends PApplet {
     }
     public void draw(){
         background(10);
-        ps.run();
+        try {
+            ps.run();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         ps.display();
 
 
